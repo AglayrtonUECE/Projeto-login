@@ -15,6 +15,7 @@ public class Enumeracao {
         
         //CONVERTE STRIN PARA TIPO ENUM
         StatusDoPedido st2 = StatusDoPedido.valueOf("ENTREGUE");
+        System.out.println("Mensagem de teste");
     }
     
 }
