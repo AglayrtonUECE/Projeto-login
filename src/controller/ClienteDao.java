@@ -1,75 +1,39 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
+
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
-import model.Pessoa;
+import javax.swing.JOptionPane;
+import model.Cliente;
 
-//abstractTableModel é uma superclasse para trabalhar com a tabela
-public class ClienteDao extends AbstractTableModel {
 
-    private List<Pessoa> dados = new ArrayList<>();
-    //defini a quantidade de colunas
-    private String[] colunas = {"nome", "telefone"};
-
-    @Override
-    public int getRowCount() {
-        return dados.size();//retorna o tamanho da coleação
+public class ClienteDAO {
+    
+    List<Cliente> lista = new ArrayList<>();
+    
+    public void cadastrar(Cliente cliente){
+        lista.add(cliente);
     }
-
-    @Override
-    public int getColumnCount() {
-        return colunas.length;//aqui vai aplicar quantas colunas vai ter
+    
+    public void alterar(String nome){
+       
     }
-
-    //apresenta os valores
-    @Override
-    public Object getValueAt(int linha, int coluna) {
-
-        //em qual coluna estou
-        switch (coluna) {
-            case 0: //nesse indice apareça
-                return dados.get(linha).getNome();
-            case 1:
-                return dados.get(linha).getTelefone();
+    
+    public void remover(Cliente c){
+       for (Cliente cliente : lista) {
+            if(cliente.getNome() == c.getNome()){
+                int i = lista.indexOf(cliente); //pega a posicao do objeto
+                lista.remove(cliente); //remove o obejto
+            }   
         }
-        return null;
     }
-
-    //pega o nome da coluna para ser impressa
-    @Override
-    public String getColumnName(int column) {
-        return colunas[column];
+    
+    public List<Cliente> listar(){
+        return lista;
     }
-
-    public void adicionarLinha(Pessoa p) {
-        this.dados.add(p);
-        //esse metodo atualiza toda vida que acontecer uma mudanca na tabela
-        this.fireTableDataChanged();
-    }
-
-    public void removerLinha(int linha) {
-        this.dados.remove(linha);
-        //esse metodo remove toda vida que acontecer uma mudanca na tabela
-        //ela pede o inicio e fim
-        this.fireTableRowsDeleted(linha, linha);
-    }
-
-    @Override
-    public void setValueAt(Object valor, int linha, int coluna) {
-        //em qual coluna estou
-        switch (coluna) {
-            case 0: //nesse indice apareça
-                 dados.get(linha).setNome((String)valor);
-                break;
-            case 1:
-                 dados.get(linha).setTelefone((String) valor);
-                break;
-        }
-        
-        //atualizar a jtable
-        this.fireTableRowsUpdated(linha, linha);
-    }
-
 }
